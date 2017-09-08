@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+
+      <title>Giphy Buttons</title>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+      <!-- <link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css"> -->
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  </head>
+  <body>
+
+<div class= "form-group">
+  <label for="basic-url">Search Term:</label>
+  <div class="search-term">
+  <span class="input-group-addon"></span>
+  <input type="text" class="form-control">
+</div>
+
+<label for="basic-url">Number of Records to Retrieve:</label>
+<div class="number">
+  <span class="input-group-addon"></span>
+  <input type="text" class="form-control">
+</div>
+
+<label for="basic-url">Start Year (Optional):</label>
+<div class="start">
+  <span class="input-group-addon" ></span>
+  <input type="text" class="form-control">
+</div>
+
+<label for="basic-url">End Year (Optional):</label>
+<div class="end">
+  <span class="input-group-addon"></span>
+  <input type="text" class="form-control">
+</div>
+
+<button type="search" class="btn btn-primary">Search</button>
+<button type="clearResults" class="btn btn-prinmary">Clear Results</button>
+
+<div class="searchResults">
+</div>
+
+<script type="text/javascript">
+
+var firstSearch = $(".search-term");
+var number = $(".number");
+
+var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + firstSearch + "&api_key=99935e62ae4742ca9a5740930a3c7276";
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+
+
+for (var i = 0; i <= number; i++){
+	var articleDiv = $("<div class='item'>");
+	var headline = result.docs[i].headline.main;
+	var webURL = result[i].web_url;
+
+	articleDiv.prepend(headline);
+	articleDiv.prepend(webURL);
+
+	$(".searchResults").prepend(articleDiv);
+}
+})
+</script>
+
+</div>
+</body>
+</html>
